@@ -48,6 +48,7 @@ function App() {
         </button>
         <input type="text" name="price" value={BCEth1}></input>
       </p>
+      <div>{BCBit1 > BCEth1 ? <p>Buy Bitcoin</p> : <p>Buy Ether</p>}</div>
     </div>
   );
 }
