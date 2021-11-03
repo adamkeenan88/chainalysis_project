@@ -20,7 +20,7 @@ const DisplayStocks = (props) => {
   return (
     <div>
       <button onClick={onClickHandle}>Click to Show Prices!</button>
-      {setStocksInfo ? (
+      {stocksInfo ? (
         <div>
           <p>Bitcoin Exchange 1: {stocksInfo.Bit1}</p>
           <p>Bitcoin Exchange 2: {stocksInfo.Bit2}</p>
@@ -30,6 +30,66 @@ const DisplayStocks = (props) => {
       ) : (
         "Stocks Loading"
       )}
+      <div>
+        {stocksInfo.Bit1 > stocksInfo.Bit2 ? (
+          <p>
+            Buy Bitcoin on exchange 2{" "}
+            <a href="https://www.cryptocompare.com/coins/btc/overview/USD">
+              here.
+            </a>
+          </p>
+        ) : (
+          <p>
+            Buy Bitcoin on exchange 1{" "}
+            <a href="https://exchange.blockchain.com/trade">here.</a>
+          </p>
+        )}
+      </div>
+      <div>
+        {stocksInfo.Bit1 > stocksInfo.Bit2 ? (
+          <p>
+            Sell Bitcoin on exchange 1{" "}
+            <a href="https://exchange.blockchain.com/trade">here.</a>
+          </p>
+        ) : (
+          <p>
+            Sell Bitcoin on exchange 2{" "}
+            <a href="https://www.cryptocompare.com/coins/btc/overview/USD">
+              here.
+            </a>
+          </p>
+        )}
+      </div>
+      <div>
+        {stocksInfo.Eth1 > stocksInfo.Eth2 ? (
+          <p>
+            Buy Ethereum on exchange 2{" "}
+            <a href="https://www.cryptocompare.com/coins/eth/overview/USD">
+              here.
+            </a>
+          </p>
+        ) : (
+          <p>
+            Buy Ethereum on exchange 1{" "}
+            <a href="https://exchange.blockchain.com/trade/ETH-USD">here.</a>
+          </p>
+        )}
+      </div>
+      <div>
+        {stocksInfo.Eth1 > stocksInfo.Eth2 ? (
+          <p>
+            Sell Ethereum on exchange 1{" "}
+            <a href="https://exchange.blockchain.com/trade/ETH-USD">here.</a>
+          </p>
+        ) : (
+          <p>
+            Sell Ethereum on exchange 2{" "}
+            <a href="https://www.cryptocompare.com/coins/eth/overview/USD">
+              here.
+            </a>
+          </p>
+        )}
+      </div>
     </div>
   );
 };
