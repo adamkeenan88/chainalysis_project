@@ -1,31 +1,20 @@
 const mongoose = require("mongoose");
 
-const CarSchema = new mongoose.Schema(
+const StockSchema = new mongoose.Schema(
   {
-    year: {
+    Bit1: {
       type: Number,
-      required: [true, "Year is Required"],
-      minLength: [3, "A Year must be at least 3 characters"],
     },
-    make: {
-      type: String,
-      required: [true, "Car Make is Required"],
-      minLength: [2, "A Car Make must be at least 2 characters"],
+    Bit2: {
+      type: Number,
     },
-    model: {
-      type: String,
-      required: [true, "Car Model is Required"],
-      minLength: [2, "A Car Model must be at least 2 characters"],
+    Eth1: {
+      type: Number,
     },
-    engine: {
-      type: String,
-      required: [true, "Car Engine is Required"],
-    },
-    color: {
-      type: String,
-      required: [false],
+    Eth2: {
+      type: Number,
     },
   },
   { timestamps: true }
 );
-module.exports = mongoose.model("Car", CarSchema);
+module.exports = mongoose.model("Stock", StockSchema);

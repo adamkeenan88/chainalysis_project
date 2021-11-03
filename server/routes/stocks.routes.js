@@ -1,12 +1,11 @@
-const CarController = require("../controllers/cars.controller");
+const StockController = require("../controllers/stocks.controller");
 
 module.exports = (app) => {
   app.get("/healthcheck", (req, res) => {
     res.send("Everything ok");
   });
-  app.post("/api/car", CarController.createCar);
-  app.get("/api", CarController.findCar);
-  app.get("/api/car/:carId", CarController.findOneCar);
-  app.put("/api/car/:carId", CarController.updateCar);
-  app.delete("/api/car/:carId", CarController.deleteCar);
+  app.post("/api/Stock", StockController.createStock);
+  app.get("/api", StockController.findStock);
+  app.get("/api/Stock/:stockId", StockController.findOneStock);
+  app.put("/api/Stock/:stockId", StockController.updateStock);
 };

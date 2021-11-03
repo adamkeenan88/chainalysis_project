@@ -1,51 +1,43 @@
-const Car = require("../models/car.model");
+const Stock = require("../models/stocks.model");
 
 module.exports.index = (req, res) => {
   res.json({ message: "Hello World" });
 };
 
-module.exports.createCar = (request, response) => {
-  const { year, make, model, engine, color } = request.body;
-
-  Car.create({
-    year,
-    make,
-    model,
-    engine,
-    color,
+module.exports.createStock = (request, response) => {
+  const { Bit1, Bit2, Eth1, Eth2 } = request.body;
+  Stock.create({
+    Bit1,
+    Bit2,
+    Eth1,
+    Eth2,
   })
-    .then((car) => response.json(car))
+    .then((stock) => response.json(stock))
     .catch((err) => {
       console.log("Mongoose Error:");
       console.log(err);
       response.status(400).json({ errors: err });
     });
 };
-module.exports.findCar = (req, res) => {
-  Car.find()
-    .then((allCars) => res.json({ car: allCars }))
+module.exports.findStock = (req, res) => {
+  Stock.find()
+    .then((allStocks) => res.json({ stock: allStocks }))
     .catch((err) => res.json({ message: "Something went wrong", error: err }));
 };
 
-module.exports.findOneCar = (req, res) => {
-  Car.findOne({ _id: req.params.carId })
-    .then((oneCar) => res.json({ car: oneCar }))
+module.exports.findOneStock = (req, res) => {
+  Stock.findOne({ _id: req.params.stockId })
+    .then((oneStock) => res.json({ stock: oneStock }))
     .catch((err) => res.json({ message: "Something went wrong", error: err }));
 };
 
-module.exports.updateCar = (req, res) => {
+module.exports.updateStock = (req, res) => {
   const { body } = req;
-  Car.findOneAndUpdate({ _id: req.params.carId }, body, {
+  Stock.findOneAndUpdate({ _id: req.params.stockId }, body, {
     new: true,
     runValidators: true,
     context: "query",
   })
-    .then((updatedCar) => res.json({ car: updatedCar }))
-    .catch((err) => res.json({ message: "Something went wrong", error: err }));
-};
-
-module.exports.deleteCar = (req, res) => {
-  Car.deleteOne({ _id: req.params.carId })
-    .then((result) => res.json({ result: result }))
+    .then((updatedStock) => res.json({ stock: updatedStock }))
     .catch((err) => res.json({ message: "Something went wrong", error: err }));
 };
