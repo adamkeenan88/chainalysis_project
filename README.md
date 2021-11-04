@@ -12,7 +12,7 @@ Live website link: http://18.221.52.126
 
 Q: Are there any sub-optimal choices( or short cuts taken due to limited time ) in your implementation?
 
-A: While my data is being stored in a MongoDB and then recalled from that, I utilize a frontend API call to get my data. I believe there is a way to create these calls directly from the backend, but for the time available this was the cleanest way I could think to utilize both frontend and backend implementation.
+A: In the APIs for my two exchanges, there was not a designated "buy" or "sell" price, so I only included the price provided (this was pretty consistent across the 4-5 APIs I researched). Also, while my data is being stored in a MongoDB and then recalled from that, I utilize a frontend API call to get my data. I believe there is a way to create these calls directly from the backend, but for the time available this was the cleanest way I could think to utilize both frontend and backend implementation.
 
 Q: Is any part of it over-designed? ( It is fine to over-design to showcase your skills as long as you are clear about it).
 
