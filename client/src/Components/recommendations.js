@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-
+// Pulling in our stockId prop from the App.js file so we can use it in our Axios GET request to grab the last set of prices
 const DisplayStocks = (props) => {
   const { stockId } = props;
   const [stocksInfo, setStocksInfo] = useState([]);
-
+  // This useEffect will only run once we get a stockId from App.js.  This way it won't run empty and return an error or undefined (or run multiple times)
   useEffect(() => {
     console.log("Click Triggered");
     axios
@@ -17,6 +17,7 @@ const DisplayStocks = (props) => {
   }, [stockId]);
   return (
     <div>
+      {/* Checking to make sure we have info in stocksInfo before pulling our info and displaying it */}
       {stocksInfo ? (
         <div>
           <p>Bitcoin Exchange 1: {stocksInfo.Bit1}</p>
@@ -28,6 +29,7 @@ const DisplayStocks = (props) => {
         "Stocks Loading"
       )}
       <div>
+        {/* Analysis section to compare the different exchange prices and provide recommendation for buying/selling.  Includes link to applicable exchange */}
         {stocksInfo.Bit1 > stocksInfo.Bit2 ? (
           <p>
             Buy Bitcoin on Exchange 2{" "}

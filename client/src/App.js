@@ -10,8 +10,9 @@ function App() {
   const [Eth1, setEth1] = useState("");
   const [Eth2, setEth2] = useState("");
   const [stockId, setStockId] = useState("");
-  //
+  // Page load useEffect call to get our crypto prices to fill our state variables
   useEffect(() => {
+    // setting the URLs, Token, and Authorization constants for both exchange websites
     const BCURLBIT = "https://api.blockchain.com/v3/exchange/tickers/BTC-USD";
     const BCURLETH = "https://api.blockchain.com/v3/exchange/tickers/ETH-USD";
     const BCUSER_TOKEN = "82e5aad3-967e-417c-9c6f-82a897b3a603";
@@ -23,6 +24,7 @@ function App() {
     const CCUSER_TOKEN =
       "5a04c723bfb95037e838e1a32471f370b94da79354fb820070e789999aa9d78f";
     const CCAuthString = "Bearer ".concat(CCUSER_TOKEN);
+    // Creating our 4 axios requests to pull in our prices
     const axiosrequest1 = axios.get(BCURLBIT, {
       headers: { Authorization: BCAuthString },
     });
@@ -35,6 +37,7 @@ function App() {
     const axiosrequest4 = axios.get(CCURLETH, {
       headers: { Authorization: CCAuthString },
     });
+    // Running all axios requests at once, then parsing the results to grab the price we want and set it to our state variables
     Promise.all([axiosrequest1, axiosrequest2, axiosrequest3, axiosrequest4])
       .then(function (results) {
         console.log(results[0]);
@@ -50,12 +53,14 @@ function App() {
         console.log(err);
       });
   }, []);
+  // Second useEffect call with the parameter to run when the last state variable is set.  This way it won't run until all variable have been set.
   useEffect(() => {
     const price = { Bit1, Eth1, Bit2, Eth2 };
     axios
       .post("http://localhost:8000/api/Stock", price)
       .then((response) => {
         setStockId(response.data._id);
+        // return the stockId so we can use it in the recommendation component and pull the most recent rates from our DB
         console.log(stockId);
       })
       .catch((err) => {
@@ -65,17 +70,14 @@ function App() {
   return (
     <div>
       <h1>Stock Prices</h1>
+      {/* Button to force a page refresh so our useEffect calls reset and fill in data with newest prices received */}
       <button onClick={() => window.location.reload(false)}>
         Click to Refresh Prices!
       </button>
-      {/* <p>{Bit1}</p>
-      <p>{Bit2}</p>
-      <p>{Eth1}</p>
-      <p>{Eth2}</p> */}
+      {/* Calling our component to display and analyze our different stock prices */}
       <div>
-        {/* <button onClick={onClickHandler}>Click to Save Prices!</button> */}
+        <DisplayStocks stockId={stockId} />
       </div>
-      <DisplayStocks stockId={stockId} />
     </div>
   );
 }
