@@ -10,71 +10,48 @@ function App() {
   const [Eth1, setEth1] = useState("");
   const [Eth2, setEth2] = useState("");
   const [stockId, setStockId] = useState("");
-  // First useEffect to call our first exchange Bitcoin price. This will call once on page load and then again when we refresh the page with the applicable button.
+  //
   useEffect(() => {
-    // Setting our URL and APIKey
-    const URL = "https://api.blockchain.com/v3/exchange/tickers/BTC-USD";
-    const USER_TOKEN = "82e5aad3-967e-417c-9c6f-82a897b3a603";
-    const AuthString = "Bearer ".concat(USER_TOKEN);
-    axios
-      .get(URL, { headers: { Authorization: AuthString } })
-      .then((response) => {
-        console.log(response.data);
-        setBit1(response.data.last_trade_price);
-      })
-      .catch((error) => {
-        console.log("error " + error);
-      });
-  }, []);
-  useEffect(() => {
-    const URL = "https://api.blockchain.com/v3/exchange/tickers/ETH-USD";
-    const USER_TOKEN = "82e5aad3-967e-417c-9c6f-82a897b3a603";
-    const AuthString = "Bearer ".concat(USER_TOKEN);
-    axios
-      .get(URL, { headers: { Authorization: AuthString } })
-      .then((response) => {
-        console.log(response.data);
-        setEth1(response.data.last_trade_price);
-      })
-      .catch((error) => {
-        console.log("error " + error);
-      });
-  }, []);
-  useEffect(() => {
-    const URL =
+    const BCURLBIT = "https://api.blockchain.com/v3/exchange/tickers/BTC-USD";
+    const BCURLETH = "https://api.blockchain.com/v3/exchange/tickers/ETH-USD";
+    const BCUSER_TOKEN = "82e5aad3-967e-417c-9c6f-82a897b3a603";
+    const BCAuthString = "Bearer ".concat(BCUSER_TOKEN);
+    const CCURLBIT =
       "https://min-api.cryptocompare.com/data/price?fsym=BTC&tsyms=USD";
-    const USER_TOKEN =
+    const CCURLETH =
+      "https://min-api.cryptocompare.com/data/price?fsym=ETH&tsyms=USD";
+    const CCUSER_TOKEN =
       "5a04c723bfb95037e838e1a32471f370b94da79354fb820070e789999aa9d78f";
-    const AuthString = "Bearer ".concat(USER_TOKEN);
-    axios
-      .get(URL, { headers: { Authorization: AuthString } })
-      .then((response) => {
-        console.log(response.data);
-        setBit2(response.data.USD);
+    const CCAuthString = "Bearer ".concat(CCUSER_TOKEN);
+    const axiosrequest1 = axios.get(BCURLBIT, {
+      headers: { Authorization: BCAuthString },
+    });
+    const axiosrequest2 = axios.get(BCURLETH, {
+      headers: { Authorization: BCAuthString },
+    });
+    const axiosrequest3 = axios.get(CCURLBIT, {
+      headers: { Authorization: CCAuthString },
+    });
+    const axiosrequest4 = axios.get(CCURLETH, {
+      headers: { Authorization: CCAuthString },
+    });
+    Promise.all([axiosrequest1, axiosrequest2, axiosrequest3, axiosrequest4])
+      .then(function (results) {
+        console.log(results[0]);
+        setBit1(results[0].data.last_trade_price);
+        console.log(results[1]);
+        setEth1(results[1].data.last_trade_price);
+        console.log(results[2]);
+        setBit2(results[2].data.USD);
+        console.log(results[3]);
+        setEth2(results[3].data.USD);
       })
-      .catch((error) => {
-        console.log("error " + error);
+      .catch((err) => {
+        console.log(err);
       });
   }, []);
   useEffect(() => {
-    const URL =
-      "https://min-api.cryptocompare.com/data/price?fsym=ETH&tsyms=USD";
-    const USER_TOKEN =
-      "5a04c723bfb95037e838e1a32471f370b94da79354fb820070e789999aa9d78f";
-    const AuthString = "Bearer ".concat(USER_TOKEN);
-    axios
-      .get(URL, { headers: { Authorization: AuthString } })
-      .then((response) => {
-        console.log(response.data);
-        setEth2(response.data.USD);
-      })
-      .catch((error) => {
-        console.log("error " + error);
-      });
-  }, []);
-  const onClickHandler = (e) => {
-    e.preventDefault();
-    const price = { Bit1, Bit2, Eth1, Eth2 };
+    const price = { Bit1, Eth1, Bit2, Eth2 };
     axios
       .post("http://localhost:8000/api/Stock", price)
       .then((response) => {
@@ -84,15 +61,19 @@ function App() {
       .catch((err) => {
         console.log(err);
       });
-  };
+  }, [Eth2]);
   return (
     <div>
       <h1>Stock Prices</h1>
       <button onClick={() => window.location.reload(false)}>
         Click to Refresh Prices!
       </button>
+      {/* <p>{Bit1}</p>
+      <p>{Bit2}</p>
+      <p>{Eth1}</p>
+      <p>{Eth2}</p> */}
       <div>
-        <button onClick={onClickHandler}>Click to Save Prices!</button>
+        {/* <button onClick={onClickHandler}>Click to Save Prices!</button> */}
       </div>
       <DisplayStocks stockId={stockId} />
     </div>
