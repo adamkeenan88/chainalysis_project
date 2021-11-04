@@ -30,14 +30,3 @@ module.exports.findOneStock = (req, res) => {
     .then((oneStock) => res.json({ stock: oneStock }))
     .catch((err) => res.json({ message: "Something went wrong", error: err }));
 };
-
-module.exports.updateStock = (req, res) => {
-  const { body } = req;
-  Stock.findOneAndUpdate({ _id: req.params.stockId }, body, {
-    new: true,
-    runValidators: true,
-    context: "query",
-  })
-    .then((updatedStock) => res.json({ stock: updatedStock }))
-    .catch((err) => res.json({ message: "Something went wrong", error: err }));
-};

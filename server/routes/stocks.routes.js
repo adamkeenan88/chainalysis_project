@@ -7,5 +7,4 @@ module.exports = (app) => {
   app.post("/api/Stock", StockController.createStock);
   app.get("/api", StockController.findStock);
   app.get("/api/Stock/:stockId", StockController.findOneStock);
-  app.put("/api/Stock/:stockId", StockController.updateStock);
 };
