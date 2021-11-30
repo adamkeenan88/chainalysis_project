@@ -6,6 +6,4 @@
 
 ### After the last prices are recalled, they are displayed and the page provides recommendations (with links) to which exchange is better to buy or sell on.
 
-Live website link: http://18.221.52.126
-
 ![CryptoAPIPractice](https://user-images.githubusercontent.com/84943280/144112724-4aa6861f-4e8a-4eab-96c9-d33ef3607adf.gif)
